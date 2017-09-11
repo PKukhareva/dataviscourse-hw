@@ -4,7 +4,20 @@
  * Note: use only the DOM API, not D3!
  */
 function staircase() {
-    // ****** TODO: PART II ******
+    // ****** PART II ******
+    let chartChildren = document.getElementById("barChart1").getElementsByTagName("rect");
+    let heightArray = [];
+
+    for (var j = 0; j<chartChildren.length; j++){
+      let rect = chartChildren[j];
+      heightArray.push (rect.getAttribute("height")*1);
+    }
+
+    heightArray.sort(function(a, b){return a - b});
+
+    for (var j = 0; j<chartChildren.length; j++){
+      chartChildren[j].setAttribute("height",heightArray[j]);
+    }
 }
 
 /**
@@ -50,29 +63,101 @@ function update(error, data) {
         .range([0, 110]);
 
 
-    // ****** TODO: PART III (you will also edit in PART V) ******
+    // ****** PART III (you will also edit in PART V) ******
 
-    // TODO: Select and update the 'a' bar chart bars
+    // Select and update the 'a' bar chart bars
 
-    // TODO: Select and update the 'b' bar chart bars
+    let rects1 = d3.selectAll("#barChart1 rect").data(data);
+    rects1.attr("height", function (d, i) {
+          return aScale(d.a);
+        })
+        .attr("x", function (d, i) {
+              return 10 + iScale(i);
+        })
+        .on('mouseover', function(d) {
+            d3.select(this).style("fill", "red");
+        })
+        .on('mouseout', function(d) {
+            d3.select(this).style("fill", "steelblue");
+        })
 
-    // TODO: Select and update the 'a' line chart path using this line generator
+    // Select and update the 'b' bar chart bars
+
+    let rects2 = d3.selectAll("#barChart2 rect").data(data);
+    rects2.attr("height", function (d, i) {
+          return bScale(d.b);
+        })
+        .attr("x", function (d, i) {
+              return 10 + iScale(i);
+        })
+        .on('mouseover', function(d) {
+            d3.select(this).style("fill", "red");
+        })
+        .on('mouseout', function(d) {
+            d3.select(this).style("fill", "steelblue");
+        })
+    // Select and update the 'a' line chart path using this line generator
 
     let aLineGenerator = d3.line()
         .x((d, i) => iScale(i))
         .y((d) => aScale(d.a));
 
-    // TODO: Select and update the 'b' line chart path (create your own generator)
+    let lineA = aLineGenerator (data);
+    let line1 = d3.selectAll("#lineChart1 path");
+    line1.attr("d", function (d, i) {
+          return lineA;
+        })
 
-    // TODO: Select and update the 'a' area chart path using this area generator
+
+
+    // Select and update the 'b' line chart path (create your own generator)
+    let bLineGenerator = d3.line()
+        .x((d, i) => iScale(i))
+        .y((d) => aScale(d.b));
+
+    let lineB = bLineGenerator (data);
+    let line2 = d3.selectAll("#lineChart2 path");
+    line2.attr("d", function (d, i) {
+          return lineB;
+        })
+
+    // Select and update the 'a' area chart path using this area generator
     let aAreaGenerator = d3.area()
         .x((d, i) => iScale(i))
         .y0(0)
         .y1(d => aScale(d.a));
 
-    // TODO: Select and update the 'b' area chart path (create your own generator)
+    let areaA = aAreaGenerator (data);
+    let area1 = d3.selectAll("#areaChart1 path");
+    area1.attr("d", function (d, i) {
+          return areaA;
+        })
+    // Select and update the 'b' area chart path (create your own generator)
+    let bAreaGenerator = d3.area()
+        .x((d, i) => iScale(i))
+        .y0(0)
+        .y1(d => aScale(d.b));
 
-    // TODO: Select and update the scatterplot points
+    let areaB = bAreaGenerator (data);
+    let area2 = d3.selectAll("#areaChart2 path");
+    area2.attr("d", function (d, i) {
+          return areaB;
+        })
+    // Select and update the scatterplot points
+    let scatterPlot = d3.selectAll("#ScatterPlot circle").data(data);
+    scatterPlot.
+        attr("cx", function (d) {
+          return aScale(d.a);
+        })
+        .attr("cy", function (d) {
+          return aScale(d.b);
+        })
+        .on('click', function(d) {
+            console.log (d.a + ';' + d.b);
+          });
+        })
+
+
 
     // ****** TODO: PART IV ******
 
@@ -96,6 +181,7 @@ function changeData() {
  */
 function randomSubset() {
     let dataFile = document.getElementById('dataset').value;
+    changeData();
     if (document.getElementById('random').checked) {
         d3.csv('data/' + dataFile + '.csv', function (error, data) {
             let subset = [];
