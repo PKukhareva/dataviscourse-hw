@@ -67,35 +67,84 @@ function update(error, data) {
 
     // Select and update the 'a' bar chart bars
 
-    let rects1 = d3.selectAll("#barChart1 rect").data(data);
-    rects1.attr("height", function (d, i) {
-          return aScale(d.a);
-        })
-        .attr("x", function (d, i) {
-              return 10 + iScale(i);
-        })
-        .on('mouseover', function(d) {
+    let barChart1 = d3.select("#barChart1").select("g");
+    let rects1 = barChart1.selectAll("rect").data(data);
+
+    let newRects1 = rects1.enter().append("rect")
+      .attr("height", function (d, i) {return aScale(d.a);})
+      .attr("x", function (d, i) {return 10 + iScale(i)})
+      .attr("y", 0)
+      .attr("width", 10)
+      .style("fill","steelblue");
+
+    rects1.exit()
+      .style("opacity", 1)
+      .transition()
+      .duration(2000)
+      .style("opacity", 0.1)
+      .remove();
+
+
+    rects1 = newRects1.merge(rects1);
+
+    rects1
+      .transition()
+      .duration(1000)
+      .attr("height", function (d, i) {return aScale(d.a);})
+      .attr("x", function (d, i) {return 10 + iScale(i)})
+      .attr("y", 0)
+      .attr("width", 10)
+      .style("fill","steelblue")
+      ;
+
+
+      rects1.on('mouseover', function(d) {
             d3.select(this).style("fill", "red");
         })
         .on('mouseout', function(d) {
             d3.select(this).style("fill", "steelblue");
-        })
+        });
+
+
 
     // Select and update the 'b' bar chart bars
+    let barChart2 = d3.select("#barChart2").select("g");
+    let rects2 = barChart2.selectAll("rect").data(data);
 
-    let rects2 = d3.selectAll("#barChart2 rect").data(data);
-    rects2.attr("height", function (d, i) {
-          return bScale(d.b);
-        })
-        .attr("x", function (d, i) {
-              return 10 + iScale(i);
-        })
-        .on('mouseover', function(d) {
+    let newRects2 = rects2.enter().append("rect")
+      .attr("height", function (d, i) {return aScale(d.b);})
+      .attr("x", function (d, i) {return 10 + iScale(i)})
+      .attr("y", 0)
+      .attr("width", 10)
+      .style("fill","steelblue");
+
+    rects2.exit()
+      .style("opacity", 1)
+      .transition()
+      .duration(2000)
+      .style("opacity", 0.1)
+      .remove();
+
+
+    rects2 = newRects2.merge(rects2);
+
+    rects2
+      .transition()
+      .duration(1000)
+      .attr("height", function (d, i) {return aScale(d.b);})
+      .attr("x", function (d, i) {return 10 + iScale(i)})
+      .attr("y", 0)
+      .attr("width", 10)
+      .style("fill","steelblue")
+      ;
+
+      rects2.on('mouseover', function(d) {
             d3.select(this).style("fill", "red");
         })
         .on('mouseout', function(d) {
             d3.select(this).style("fill", "steelblue");
-        })
+        });
+
     // Select and update the 'a' line chart path using this line generator
 
     let aLineGenerator = d3.line()
@@ -103,8 +152,12 @@ function update(error, data) {
         .y((d) => aScale(d.a));
 
     let lineA = aLineGenerator (data);
+
     let line1 = d3.selectAll("#lineChart1 path");
-    line1.attr("d", function (d, i) {
+    line1
+      .transition()
+      .duration(2000)
+      .attr("d", function (d, i) {
           return lineA;
         })
 
@@ -117,7 +170,10 @@ function update(error, data) {
 
     let lineB = bLineGenerator (data);
     let line2 = d3.selectAll("#lineChart2 path");
-    line2.attr("d", function (d, i) {
+    line2
+      .transition()
+      .duration(2000)
+      .attr("d", function (d, i) {
           return lineB;
         })
 
@@ -129,7 +185,10 @@ function update(error, data) {
 
     let areaA = aAreaGenerator (data);
     let area1 = d3.selectAll("#areaChart1 path");
-    area1.attr("d", function (d, i) {
+    area1
+      .transition()
+      .duration(2000)
+      .attr("d", function (d, i) {
           return areaA;
         })
     // Select and update the 'b' area chart path (create your own generator)
@@ -140,26 +199,58 @@ function update(error, data) {
 
     let areaB = bAreaGenerator (data);
     let area2 = d3.selectAll("#areaChart2 path");
-    area2.attr("d", function (d, i) {
+    area2
+      .transition()
+      .duration(2000)
+      .attr("d", function (d, i) {
           return areaB;
         })
     // Select and update the scatterplot points
-    let scatterPlot = d3.selectAll("#ScatterPlot circle").data(data);
-    scatterPlot.
-        attr("cx", function (d) {
-          return aScale(d.a);
+    var tooltip = d3.select("body")
+    	.append("div")
+    	.style("position", "absolute")
+    	.style("visibility", "hidden");
+
+    let scatter = d3.select("#ScatterPlot").select("g");
+    let scatterPlot = scatter.selectAll("circle").data(data);
+    let newScatterPlot = scatterPlot.enter().append("circle")
+      .attr("cx", function (d) { return aScale(d.a);})
+      .attr("cy", function (d) { return aScale(d.b);})
+      .attr("r", 5)
+      ;
+
+    scatterPlot.exit()
+      .style("opacity", 1)
+      .transition()
+      .duration(2000)
+      .style("opacity", 0.1)
+      .remove();
+
+
+    scatterPlot = newScatterPlot.merge(scatterPlot);
+
+    scatterPlot
+        .transition()
+        .duration(2000)
+        .attr("cx", function (d) { return aScale(d.a); })
+        .attr("cy", function (d) { return aScale(d.b);})
+        .attr("r", 5);
+
+
+  scatterPlot.on("click", function(d) {
+          return tooltip
+          .style("visibility", "visible").text(d.a + '; ' + d.b)
+          .style("top", (event.pageY-50)+"px")
+          .style("left",(event.pageX-10)+"px")
         })
-        .attr("cy", function (d) {
-          return aScale(d.b);
-        })
-        .on('click', function(d) {
-            console.log (d.a + ';' + d.b);
-          });
+      	.on("mouseout", function(){
+          return tooltip.style("visibility", "hidden");
         })
 
 
 
-    // ****** TODO: PART IV ******
+
+    // ****** PART IV ******
 
 }
 
@@ -181,7 +272,7 @@ function changeData() {
  */
 function randomSubset() {
     let dataFile = document.getElementById('dataset').value;
-    changeData();
+
     if (document.getElementById('random').checked) {
         d3.csv('data/' + dataFile + '.csv', function (error, data) {
             let subset = [];
