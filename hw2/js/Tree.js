@@ -13,18 +13,6 @@ class Tree {
  			this.nodes.push(node);
  		}
 
-<<<<<<< HEAD
-=======
-	/**
-	 * Function that builds a tree from a list of nodes with parent refs
-	 */
-	buildTree() {
-
-        //Assign Positions and Levels by making calls to assignPosition() and assignLevel()
-    }
->>>>>>> 98b86b26aac115ffda6b2d59581f0233a4e178aa
-
- 	}
 	/**
 	 * Recursive function that assign positions to each node
 	 */
@@ -83,7 +71,7 @@ class Tree {
 	 * Function that renders the tree
 	 */
 	renderTree() {
-<<<<<<< HEAD
+
 		var treeArray=this.nodes;
 		var execute = function () {
     let svg = d3.select("svg");
@@ -122,9 +110,9 @@ class Tree {
 
 }
 }
-=======
+
         
     }
 
 }
->>>>>>> 98b86b26aac115ffda6b2d59581f0233a4e178aa
+
