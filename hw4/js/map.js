@@ -12,14 +12,16 @@ class Map {
      * Function that clears the map
      */
     clearMap() {
-
+      d3.selectAll(".gold").remove();
+      d3.selectAll(".silver").remove();
+      d3.select("#map").selectAll("path").style("fill", "black");
         // ******* TODO: PART V*******
         // Clear the map of any colors/markers; You can do this with inline styling or by
         // defining a class style in styles.css
 
         // Hint: If you followed our suggestion of using classes to style
         // the colors and markers for hosts/teams/winners, you can use
-        // d3 selection and .classed to set these classes on and off here.
+          // d3 selection and .classed to set these classes on and off here.
 
     }
 
@@ -49,6 +51,52 @@ class Map {
 
 
         // Add a marker for gold/silver medalists
+        let map = d3.select("#map");
+        let width = 600;
+        let height = 600;
+        let projection = d3.geoMercator()
+            .translate([width - 200, height - 200]) // this centers the map in our SVG element
+            .scale([100]);  // this specifies how much to zoom
+        for (var i=0; i < worldcupData.teams_names.length; i++){
+         map.select("#" + worldcupData.teams_iso[i]).style("fill", "pink")
+         .attr("class", "legend-element");
+        }
+
+        let host = map.select("#" + worldcupData.host_country_code).style("fill", "blue")
+                 .attr("class", "legend-element");
+
+         let points = d3.select("#points")
+         points.append("circle")
+         .attr("cx", function (d) {
+                    return projection(worldcupData.win_pos)[0];
+                })
+          .attr("cy", function (d) {
+                     return projection(worldcupData.win_pos)[1];
+                 })
+          .attr("r", 8)
+          .attr("class", "gold")
+          ;
+          points.append("circle")
+          .attr("cx", function (d) {
+                     return projection(worldcupData.ru_pos)[0];
+                 })
+           .attr("cy", function (d) {
+                      return projection(worldcupData.ru_pos)[1];
+                  })
+           .attr("r", 8)
+           .attr("class", "silver")
+           ;
+        // d3.select("#host").text(oneWorldCup.host);
+        //
+        // d3.select("#winner").text(oneWorldCup.winner);
+        // d3.select("#silver").text(oneWorldCup.runner_up);
+        // let teams = d3.select("#teams");
+        // console.log(teams);
+        // teams.selectAll("p").remove();
+        // console.log(oneWorldCup.teams_names.length);
+        // for (var i=0; i < oneWorldCup.teams_names.length; i++){
+        //   teams.append("p").text(oneWorldCup.teams_names[i])
+
     }
 
     /**
@@ -70,6 +118,26 @@ class Map {
 
         // Make sure and give your paths the appropriate class (see the .css selectors at
         // the top of the provided html file)
+        console.log(world);
+        let width = 600;
+        let height = 600;
+        let svg = d3.select("#map");
+        let countries = topojson.feature(world, world.objects.countries).features;
+        console.log(countries);
+        let projection = d3.geoMercator()
+            .translate([width - 200, height - 200]) // this centers the map in our SVG element
+            .scale([100]);  // this specifies how much to zoom
+        let path = d3.geoPath()
+        .projection(projection);
+        svg.selectAll(".country")
+            .data(countries)
+          .enter().insert("path", ".graticule")
+            .attr("class", function(d) { return "country " + "code" + d.id; })
+            .attr("id", function(d){
+                return d.id;
+            })
+            .attr("d", path);
+
 
     }
 

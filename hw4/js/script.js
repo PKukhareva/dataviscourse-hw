@@ -1,4 +1,5 @@
 
+
 // Load CSV file
 d3.csv("data/fifa-world-cup.csv", function (error, allData) {
     allData.forEach(function (d) {
@@ -46,5 +47,7 @@ function chooseData() {
     // ******* TODO: PART I *******
     // Changed the selected data when a user selects a different
     // menu item from the drop down.
+    let selectedDimension = document.getElementById('dataset').value;
+    barChart.updateBarChart(selectedDimension);
 
 }
