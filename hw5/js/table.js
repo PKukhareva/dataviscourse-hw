@@ -5,15 +5,15 @@ class Table {
      */
     constructor(teamData, treeObject) {
 
-        //Maintain reference to the tree Object; 
-        this.tree = null; 
+        //Maintain reference to the tree Object;
+        this.tree = null;
 
         // Create list of all elements that will populate the table
         // Initially, the tableElements will be identical to the teamData
-        this.tableElements = null; // 
+        this.tableElements = null; //
 
         ///** Store all match data for the 2014 Fifa cup */
-        this.teamData = null;
+        this.teamData =  teamData;;
 
         //Default values for the Table Headers
         this.tableHeaders = ["Delta Goals", "Result", "Wins", "Losses", "TotalGames"];
@@ -34,17 +34,17 @@ class Table {
         this.goalsConcededHeader = 'Goals Conceded';
 
         /** Setup the scales*/
-        this.goalScale = null; 
+        this.goalScale = null;
 
         /** Used for games/wins/losses*/
-        this.gameScale = null; 
+        this.gameScale = null;
 
         /**Color scales*/
         /**For aggregate columns  Use colors '#ece2f0', '#016450' for the range.*/
-        this.aggregateColorScale = null; 
+        this.aggregateColorScale = null;
 
         /**For goal Column. Use colors '#cb181d', '#034e7b'  for the range.*/
-        this.goalColorScale = null; 
+        this.goalColorScale = null;
     }
 
 
@@ -60,6 +60,30 @@ class Table {
         //Update Scale Domains
 
         // Create the x axes for the goalScale.
+        let data = this.teamData;
+        let width = 120;
+        console.log(data);
+        console.log(data[0].value['Goals Made']);
+        let xScale = d3.scaleBand()
+          .range([0, width]).padding(.1)
+          .domain(data.map(d => d.value["Goals Made"]));
+        let xAxis = d3.axisBottom();
+        console.log(xAxis);
+        xAxis.scale(xScale);
+        d3.select("#goalHeader")
+
+          .classed("axis", true)
+          .attr("transform", "translate(" + 10 + "," + width + ")")
+          .call(xAxis)
+          .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("dx", "-.8em")
+          .attr("dy", ".15em")
+          .attr("transform", "rotate(-60)");
+
+
+          // ticks = xScale.ticks();
+          // xAxis.tickValues(ticks);
 
         //add GoalAxis to header of col 1.
 
@@ -67,9 +91,9 @@ class Table {
 
         // Set sorting callback for clicking on headers
 
-        // Clicking on headers should also trigger collapseList() and updateTable(). 
+        // Clicking on headers should also trigger collapseList() and updateTable().
 
-       
+
     }
 
 
@@ -82,9 +106,9 @@ class Table {
 
         //Append th elements for the Team Names
 
-        //Append td elements for the remaining columns. 
+        //Append td elements for the remaining columns.
         //Data for each cell is of the type: {'type':<'game' or 'aggregate'>, 'value':<[array of 1 or two elements]>}
-        
+
         //Add scores as title property to appear on hover
 
         //Populate cells (do one type of cell at a time )
@@ -101,9 +125,9 @@ class Table {
      */
     updateList(i) {
         // ******* TODO: PART IV *******
-       
+
         //Only update list for aggregate clicks, not game clicks
-        
+
     }
 
     /**
@@ -111,7 +135,7 @@ class Table {
      *
      */
     collapseList() {
-        
+
         // ******* TODO: PART IV *******
 
     }

@@ -1,5 +1,5 @@
     /**
-     * Loads in the table information from fifa-matches.json 
+     * Loads in the table information from fifa-matches.json
      */
 d3.json('data/fifa-matches.json',function(error,data){
 
@@ -40,12 +40,19 @@ d3.json('data/fifa-matches.json',function(error,data){
 //      * Loads in the tree information from fifa-tree.csv and calls createTree(csvData) to render the tree.
 //      *
 //      */
-//     d3.csv("data/fifa-tree.csv", function (error, treeCSV) {
-
+// d3.csv("data/fifa-tree.csv", function (error, treeCSV) {
+//
 //     // ******* TODO: PART I *******
-
-
+//     teamData = d3.nest()
+//         .key(function (d) {
+//             return d.Team;
+//         })
+//         .rollup(function (leaves) {
+//             return d3.sum(leaves,function(l){return l.Wins});
+//         })
+//         .entries(allGames);
+//
 //     });
-
+//
 // });
 // // ********************** END HACKER VERSION ***************************
