@@ -5,6 +5,7 @@ class Table {
      */
     constructor(teamData, treeObject) {
 
+<<<<<<< HEAD
         //Maintain reference to the tree Object;
         this.tree = treeObject;
         console.log(this.tree);
@@ -14,6 +15,18 @@ class Table {
         ///** Store all match data for the 2014 Fifa cup */
         this.teamData =  teamData;
         this.tableElements = null;
+=======
+        //Maintain reference to the tree Object; 
+        this.tree = null; 
+
+        // Create list of all elements that will populate the table
+        // Initially, the tableElements will be identical to the teamData
+        this.tableElements = null; // 
+
+        ///** Store all match data for the 2014 Fifa cup */
+        this.teamData = null;
+
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
         //Default values for the Table Headers
         this.tableHeaders = ["Delta Goals", "Result", "Wins", "Losses", "TotalGames"];
 
@@ -33,6 +46,7 @@ class Table {
         this.goalsConcededHeader = 'Goals Conceded';
 
         /** Setup the scales*/
+<<<<<<< HEAD
         this.goalScale = null;
 
         /** Used for games/wins/losses*/
@@ -46,6 +60,19 @@ class Table {
         this.goalbarColorScale = null;
 
         this.sort = null;
+=======
+        this.goalScale = null; 
+
+        /** Used for games/wins/losses*/
+        this.gameScale = null; 
+
+        /**Color scales*/
+        /**For aggregate columns  Use colors '#ece2f0', '#016450' for the range.*/
+        this.aggregateColorScale = null; 
+
+        /**For goal Column. Use colors '#cb181d', '#034e7b'  for the range.*/
+        this.goalColorScale = null; 
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
     }
 
 
@@ -61,6 +88,7 @@ class Table {
         //Update Scale Domains
 
         // Create the x axes for the goalScale.
+<<<<<<< HEAD
         let data = this.teamData;
         let thisTree = this.tree;
         let width = 70;
@@ -103,14 +131,24 @@ class Table {
 
 
 
+=======
+
+        //add GoalAxis to header of col 1.
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
 
         // ******* TODO: PART V *******
 
         // Set sorting callback for clicking on headers
 
+<<<<<<< HEAD
         // Clicking on headers should also trigger collapseList() and updateTable().
 
 
+=======
+        // Clicking on headers should also trigger collapseList() and updateTable(). 
+
+       
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
     }
 
 
@@ -120,6 +158,7 @@ class Table {
     updateTable() {
         // ******* TODO: PART III *******
         //Create table rows
+<<<<<<< HEAD
         let thisTable = this;
         let newTree = this.tree;
         let teamData = this.teamData;
@@ -274,6 +313,14 @@ class Table {
 
         //Data for each cell is of the type: {'type':<'game' or 'aggregate'>, 'value':<[array of 1 or two elements]>}
 
+=======
+
+        //Append th elements for the Team Names
+
+        //Append td elements for the remaining columns. 
+        //Data for each cell is of the type: {'type':<'game' or 'aggregate'>, 'value':<[array of 1 or two elements]>}
+        
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
         //Add scores as title property to appear on hover
 
         //Populate cells (do one type of cell at a time )
@@ -282,6 +329,7 @@ class Table {
 
         //Set the color of all games that tied to light gray
 
+<<<<<<< HEAD
         d3.selectAll("#header0").on("click", function(d) {
           if (this.sort == 0) {
             sortTeams(thisTable,0, "ascending");
@@ -340,6 +388,30 @@ class Table {
 
     };
 
+=======
+    };
+
+    /**
+     * Updates the global tableElements variable, with a row for each row to be rendered in the table.
+     *
+     */
+    updateList(i) {
+        // ******* TODO: PART IV *******
+       
+        //Only update list for aggregate clicks, not game clicks
+        
+    }
+
+    /**
+     * Collapses all expanded countries, leaving only rows for aggregate values per country.
+     *
+     */
+    collapseList() {
+        
+        // ******* TODO: PART IV *******
+
+    }
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
 
 
 }

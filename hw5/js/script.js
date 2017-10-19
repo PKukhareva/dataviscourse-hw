@@ -1,5 +1,9 @@
     /**
+<<<<<<< HEAD
      * Loads in the table information from fifa-matches.json
+=======
+     * Loads in the table information from fifa-matches.json 
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
      */
 d3.json('data/fifa-matches.json',function(error,data){
 
@@ -26,6 +30,7 @@ d3.json('data/fifa-matches.json',function(error,data){
     });
 });
 
+<<<<<<< HEAD
 function addCountry(countryObject, tableElements) {
   let cellContent =
   [
@@ -130,6 +135,9 @@ function sortTeams(table,i, sortType) {
   }
   table.updateTable();
 }
+=======
+
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
 
 // // // ********************** HACKER VERSION ***************************
 // /**
@@ -143,6 +151,7 @@ function sortTeams(table,i, sortType) {
 //      * Loads in the tree information from fifa-tree.csv and calls createTree(csvData) to render the tree.
 //      *
 //      */
+<<<<<<< HEAD
 // d3.csv("data/fifa-tree.csv", function (error, treeCSV) {
 //
 //     // ******* TODO: PART I *******
@@ -157,5 +166,14 @@ function sortTeams(table,i, sortType) {
 //
 //     });
 //
+=======
+//     d3.csv("data/fifa-tree.csv", function (error, treeCSV) {
+
+//     // ******* TODO: PART I *******
+
+
+//     });
+
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
 // });
 // // ********************** END HACKER VERSION ***************************

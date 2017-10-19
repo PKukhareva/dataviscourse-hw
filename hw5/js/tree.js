@@ -4,7 +4,11 @@ class Tree {
      * Creates a Tree Object
      */
     constructor() {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
     }
 
     /**
@@ -16,6 +20,7 @@ class Tree {
 
         // ******* TODO: PART VI *******
 
+<<<<<<< HEAD
         //Create a tree and give it a size() of 800 by 300.
 
         let data=treeData;
@@ -100,6 +105,17 @@ class Tree {
               .text(function(d) {
                 return d.data.data['Team']; });
 
+=======
+        //Create a tree and give it a size() of 800 by 300. 
+
+
+        //Create a root for the tree using d3.stratify(); 
+
+        
+        //Add nodes and links to the tree. 
+
+       
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
     };
 
     /**
@@ -110,16 +126,21 @@ class Tree {
      */
     updateTree(row) {
         // ******* TODO: PART VII *******
+<<<<<<< HEAD
         d3.selectAll("#tree")
         .selectAll("#" + row)
         .attr("fill", "red")
         .style("stroke", "red");
 
+=======
+    
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
     }
 
     /**
      * Removes all highlighting from the tree.
      */
+<<<<<<< HEAD
     clearTree(row) {
         // ******* TODO: PART VII *******
         d3.selectAll("#tree")
@@ -127,5 +148,11 @@ class Tree {
         .attr("fill", "blue")
         .style("stroke", "gray");
         // You only need two lines of code for this! No loops!
+=======
+    clearTree() {
+        // ******* TODO: PART VII *******
+
+        // You only need two lines of code for this! No loops! 
+>>>>>>> a32a0c9cec2a23eafad62c4e18de23b1cfaca7e9
     }
 }
